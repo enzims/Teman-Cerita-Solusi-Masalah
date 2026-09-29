@@ -1,87 +1,448 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teman Cerita & Solusi Masalah</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .card {
-            background: #ffffff;
-            padding: 40px 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-        h1 {
-            color: #2c3e50;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        p.subtitle {
-            font-size: 16px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-        .features {
-            text-align: left;
-            margin-bottom: 30px;
-            background: #f9f9f9;
-            padding: 15px 20px;
-            border-radius: 10px;
-        }
-        .feature-item {
-            margin: 10px 0;
-            font-size: 15px;
-        }
-        .btn-wa {
-            display: inline-block;
-            background-color: #25D366;
-            color: white;
-            text-decoration: none;
-            padding: 15px 25px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            transition: background-color 0.3s ease;
-        }
-        .btn-wa:hover {
-            background-color: #1eb854;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teman Cerita — Ruang untuk Berbagi</title>
+  <meta name="description" content="Teman Cerita adalah ruang nyaman untuk berbagi cerita, didengarkan, dan berbincang.">
+  <style>
+    :root{
+      --primary:#5b8f87;
+      --primary-dark:#3f7069;
+      --soft:#edf6f3;
+      --cream:#fffaf4;
+      --text:#30423f;
+      --muted:#6f7f7c;
+      --white:#ffffff;
+      --shadow:0 18px 45px rgba(49,78,73,.10);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+      color:var(--text);
+      background:var(--cream);
+      line-height:1.7;
+    }
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1120px,92%);margin:auto}
+
+    /* Navbar */
+    header{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,250,244,.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(91,143,135,.10);
+    }
+    nav{
+      height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+    .logo{
+      font-size:22px;
+      font-weight:800;
+      color:var(--primary-dark);
+    }
+    .logo span{font-weight:400;color:var(--text)}
+    .nav-links{display:flex;gap:26px;align-items:center}
+    .nav-links a{font-size:14px;color:#53635f;font-weight:600}
+    .nav-links a:hover{color:var(--primary-dark)}
+    .nav-btn{
+      background:var(--primary);
+      color:white!important;
+      padding:10px 18px;
+      border-radius:30px;
+    }
+
+    /* Hero */
+    .hero{
+      min-height:650px;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      align-items:center;
+      gap:55px;
+      padding:70px 0 80px;
+    }
+    .eyebrow{
+      display:inline-block;
+      background:#e3f1ed;
+      color:var(--primary-dark);
+      padding:7px 14px;
+      border-radius:30px;
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:18px;
+    }
+    h1{
+      font-size:clamp(40px,5vw,64px);
+      line-height:1.1;
+      margin:0 0 22px;
+      letter-spacing:-1.5px;
+    }
+    .hero p{
+      color:var(--muted);
+      max-width:590px;
+      font-size:17px;
+      margin-bottom:30px;
+    }
+    .buttons{display:flex;gap:13px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 23px;
+      border-radius:40px;
+      font-weight:700;
+      transition:.2s;
+    }
+    .btn-primary{background:var(--primary);color:#fff;box-shadow:0 10px 25px rgba(91,143,135,.25)}
+    .btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px)}
+    .btn-outline{border:1px solid #c8d9d5;color:var(--primary-dark);background:#fff}
+    .btn-outline:hover{transform:translateY(-2px)}
+
+    .hero-card{
+      background:var(--soft);
+      border-radius:42px;
+      padding:35px;
+      position:relative;
+      min-height:410px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .blob{
+      position:absolute;
+      border-radius:50%;
+      background:#d7ebe6;
+      opacity:.8;
+    }
+    .blob.one{width:180px;height:180px;top:-70px;right:-50px}
+    .blob.two{width:130px;height:130px;bottom:-45px;left:-35px;background:#f4dfc9}
+    .chat-card{
+      position:relative;
+      z-index:2;
+      width:min(330px,100%);
+      background:white;
+      padding:28px;
+      border-radius:26px;
+      box-shadow:var(--shadow);
+    }
+    .chat-icon{
+      width:62px;height:62px;border-radius:20px;
+      background:#e3f1ed;
+      display:grid;place-items:center;
+      font-size:29px;margin-bottom:18px;
+    }
+    .chat-card h3{margin:0 0 8px;font-size:21px}
+    .chat-card p{margin:0;color:var(--muted);font-size:14px}
+    .message{
+      background:#f4f7f6;
+      margin-top:20px;
+      padding:13px 15px;
+      border-radius:16px;
+      font-size:13px;
+      color:#53635f;
+    }
+
+    /* Sections */
+    section{padding:85px 0}
+    .section-head{text-align:center;max-width:680px;margin:0 auto 45px}
+    .section-head .label{
+      color:var(--primary-dark);
+      font-weight:800;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .section-head h2{font-size:36px;line-height:1.2;margin:10px 0 14px}
+    .section-head p{color:var(--muted);margin:0}
+
+    .about{
+      background:white;
+    }
+    .about-grid{
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:55px;
+      align-items:center;
+    }
+    .about-box{
+      background:var(--soft);
+      border-radius:30px;
+      padding:35px;
+    }
+    .about-box .big{font-size:54px}
+    .about h3{font-size:28px;margin:0 0 12px}
+    .about p{color:var(--muted)}
+
+    .services{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+    .service{
+      background:white;
+      border:1px solid #edf0ef;
+      border-radius:var(--radius);
+      padding:30px;
+      box-shadow:0 10px 30px rgba(49,78,73,.05);
+      transition:.2s;
+    }
+    .service:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+    .service-icon{
+      width:54px;height:54px;border-radius:17px;
+      background:var(--soft);
+      display:grid;place-items:center;
+      font-size:25px;margin-bottom:20px;
+    }
+    .service h3{margin:0 0 8px}
+    .service p{margin:0;color:var(--muted);font-size:14px}
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+    .step{
+      background:white;
+      padding:25px;
+      border-radius:22px;
+      border:1px solid #edf0ef;
+    }
+    .number{
+      color:var(--primary);
+      font-weight:900;
+      font-size:28px;
+    }
+    .step h3{font-size:17px;margin:10px 0 6px}
+    .step p{font-size:14px;color:var(--muted);margin:0}
+
+    .faq-wrap{max-width:800px;margin:auto}
+    details{
+      background:white;
+      margin-bottom:12px;
+      border-radius:16px;
+      padding:18px 22px;
+      border:1px solid #edf0ef;
+    }
+    summary{cursor:pointer;font-weight:700}
+    details p{color:var(--muted);font-size:14px;margin-bottom:0}
+
+    .cta{
+      padding:65px 30px;
+      background:var(--primary-dark);
+      color:white;
+      border-radius:34px;
+      text-align:center;
+      margin-bottom:85px;
+    }
+    .cta h2{font-size:36px;margin:0 0 10px}
+    .cta p{opacity:.9;max-width:620px;margin:0 auto 25px}
+    .cta .btn{background:white;color:var(--primary-dark)}
+
+    footer{
+      background:#263a37;
+      color:#dce8e5;
+      padding:35px 0;
+    }
+    .footer-flex{
+      display:flex;justify-content:space-between;gap:25px;align-items:center;
+    }
+    footer strong{color:white}
+    footer p{margin:5px 0 0;font-size:13px;color:#b9cbc7}
+    .footer-links{display:flex;gap:20px;font-size:13px}
+
+    @media(max-width:850px){
+      .nav-links{display:none}
+      .hero,.about-grid{grid-template-columns:1fr}
+      .hero{padding-top:45px}
+      .services{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:520px){
+      h1{font-size:42px}
+      section{padding:65px 0}
+      .steps{grid-template-columns:1fr}
+      .hero-card{min-height:350px;padding:22px}
+      .cta{padding:45px 22px}
+      .cta h2,.section-head h2{font-size:29px}
+      .footer-flex{flex-direction:column;align-items:flex-start}
+    }
+  </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>Punya Masalah Tapi Bingung Mau Cerita ke Siapa?</h1>
-        <p class="subtitle">
-            Terkadang kamu hanya butuh seseorang yang mau mendengarkan tanpa menghakimi dan membantu menemukan jalan keluar. Kamu tidak harus menghadapi semuanya sendirian.
+<header>
+  <div class="container">
+    <nav>
+      <a class="logo" href="#home">Teman<span>Cerita</span></a>
+      <div class="nav-links">
+        <a href="#home">Beranda</a>
+        <a href="#tentang">Tentang</a>
+        <a href="#layanan">Layanan</a>
+        <a href="#cara">Cara Kerja</a>
+        <a href="#faq">FAQ</a>
+        <a class="nav-btn" href="https://wa.me/6281241051144?text=Halo,%20saya%20mau%20cerita%20dan%20konsultasi%20masalah" target="_blank">Mulai Cerita</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="home">
+  <div class="container">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Ruang untuk berbagi cerita</span>
+        <h1>Punya cerita yang ingin disampaikan?</h1>
+        <p>
+          Kadang kita hanya membutuhkan seseorang yang mau mendengarkan.
+          Ceritakan apa yang sedang kamu pikirkan dan temukan ruang untuk
+          berbagi dengan nyaman.
         </p>
-
-        <div class="features">
-            <div class="feature-item">🔒 <strong>Aman & Rahasia:</strong> Ceritamu dijamin terjaga.</div>
-            <div class="feature-item">🎧 <strong>Pendengar Baik:</strong> Ruang aman untuk meluapkan beban pikiran.</div>
-            <div class="feature-item">💡 <strong>Cari Solusi:</strong> Diskusi santai untuk menemukan jalan keluar.</div>
+        <div class="buttons">
+          <a class="btn btn-primary" href="https://wa.me/6281241051144?text=Halo,%20saya%20mau%20cerita%20dan%20konsultasi%20masalah" target="_blank">💬 Mulai Cerita</a>
+          <a class="btn btn-outline" href="#tentang">Kenal Lebih Dekat</a>
         </div>
+      </div>
 
-        <a href="https://wa.me/6285247527337?text=Halo,%20saya%20mau%20cerita%20dan%20konsultasi%20masalah" class="btn-wa" target="_blank">
-            💬 Ngobrol di WhatsApp Sekarang
-        </a>
+      <div class="hero-card">
+        <div class="blob one"></div>
+        <div class="blob two"></div>
+        <div class="chat-card">
+          <div class="chat-icon">💬</div>
+          <h3>Tempat untuk bercerita</h3>
+          <p>Kamu tidak harus selalu menyimpan semuanya sendiri.</p>
+          <div class="message">“Aku cuma ingin cerita sebentar...”</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="about" id="tentang">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-box">
+          <div class="big">🌿</div>
+          <h3>Pelan-pelan saja.</h3>
+          <p>Setiap cerita punya waktunya sendiri untuk disampaikan.</p>
+        </div>
+        <div>
+          <div class="section-head" style="text-align:left;margin:0">
+            <span class="label">Tentang Teman Cerita</span>
+            <h2>Ruang sederhana untuk berbagi.</h2>
+            <p>
+              Teman Cerita hadir sebagai tempat untuk berbagi cerita dan
+              berbincang ketika kamu membutuhkan seseorang untuk mendengarkan.
+              Kamu bisa bercerita sesuai dengan kenyamananmu.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <section id="layanan">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">Layanan</span>
+        <h2>Apa yang bisa kamu lakukan di sini?</h2>
+        <p>Pilih cara berbagi yang paling nyaman untukmu.</p>
+      </div>
+
+      <div class="services">
+        <div class="service">
+          <div class="service-icon">💬</div>
+          <h3>Teman Cerita</h3>
+          <p>Ruang untuk menceritakan hal-hal yang sedang kamu pikirkan.</p>
+        </div>
+        <div class="service">
+          <div class="service-icon">👂</div>
+          <h3>Didengarkan</h3>
+          <p>Berbagi cerita dengan percakapan yang nyaman dan tidak menghakimi.</p>
+        </div>
+        <div class="service">
+          <div class="service-icon">💡</div>
+          <h3>Teman Diskusi</h3>
+          <p>Berbincang dan melihat suatu masalah dari sudut pandang yang berbeda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cara" style="background:#f3f8f6">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">Cara Kerja</span>
+        <h2>Mulai cerita dalam beberapa langkah.</h2>
+        <p>Sederhana dan langsung terhubung melalui WhatsApp.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step"><div class="number">01</div><h3>Klik Mulai Cerita</h3><p>Pilih tombol WhatsApp yang tersedia.</p></div>
+        <div class="step"><div class="number">02</div><h3>Hubungi Kami</h3><p>Kirim pesan untuk memulai percakapan.</p></div>
+        <div class="step"><div class="number">03</div><h3>Ceritakan</h3><p>Bagikan cerita sesuai dengan kenyamananmu.</p></div>
+        <div class="step"><div class="number">04</div><h3>Berbincang</h3><p>Lanjutkan percakapan dengan santai.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="label">FAQ</span>
+        <h2>Pertanyaan yang sering ditanyakan</h2>
+      </div>
+      <div class="faq-wrap">
+        <details>
+          <summary>Apakah saya harus menceritakan semuanya?</summary>
+          <p>Tidak. Kamu bisa berbagi sesuai dengan hal yang ingin kamu ceritakan dan sesuai kenyamananmu.</p>
+        </details>
+        <details>
+          <summary>Bagaimana cara mulai bercerita?</summary>
+          <p>Klik tombol “Mulai Cerita”, lalu kamu akan diarahkan ke WhatsApp untuk memulai percakapan.</p>
+        </details>
+        <details>
+          <summary>Apakah cerita saya akan dirahasiakan?</summary>
+          <p>Iya, cerita yang kamu sampaikan akan dijaga kerahasiaannya dan tidak akan dibagikan kepada orang lain tanpa izin.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <section class="cta" id="kontak">
+      <h2>Yuk, mulai cerita.</h2>
+      <p>
+        Kalau kamu sedang ingin berbagi, kamu bisa menghubungi Teman Cerita
+        melalui WhatsApp.
+      </p>
+      <a class="btn" href="https://wa.me/6281241051144?text=Halo,%20saya%20mau%20cerita%20dan%20konsultasi%20masalah" target="_blank">💬 Chat via WhatsApp</a>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-flex">
+    <div>
+      <strong>Teman Cerita</strong>
+      <p>Ruang sederhana untuk berbagi dan didengarkan.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#tentang">Tentang</a>
+      <a href="#layanan">Layanan</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
